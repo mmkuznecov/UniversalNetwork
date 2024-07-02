@@ -2,7 +2,7 @@ import torch
 from enum import Enum, auto
 import os.path as osp
 from typing import NamedTuple
-from torch.nn import CrossEntropyLoss
+from torch.nn import CrossEntropyLoss, MSELoss
 
 from helpers.git_path import get_git_path
 from helpers.vn_modelnet_dataloader import ModelNetDataLoader
@@ -70,9 +70,10 @@ class TrainerArgs(NamedTuple):
 
 class Task(Enum):
     """
-    an object for the different datasets
+    an object for the different tasks
     """
     Classification = auto()
+    Regression = auto()
 
     @staticmethod
     def from_string(s):
@@ -82,7 +83,10 @@ class Task(Enum):
             raise ValueError()
 
     def get_loss(self):
-        return CrossEntropyLoss()
+        if self == Task.Classification:
+            return CrossEntropyLoss()
+        elif self == Task.Regression:
+            return MSELoss()
 
 
 class DataSet(Enum):

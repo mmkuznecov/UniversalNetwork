@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import random
 import torch
 from argparse import ArgumentParser
@@ -41,13 +42,15 @@ def record_args(args: ArgumentParser) -> str:
     return name_of_run
 
 
-def set_seed(seed: int):
-    torch.manual_seed(seed)
-    np.random.seed(seed)
+def seed_everything(seed: int):
+    
     random.seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed(seed)
-        torch.cuda.manual_seed_all(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
 
 
 def print_results_list(results_list: List[Tuple[str, float]], epoch: Optional[int] = None):

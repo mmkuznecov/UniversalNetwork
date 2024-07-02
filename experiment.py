@@ -2,7 +2,7 @@ import torch
 import os.path as osp
 
 from helpers.git_path import get_git_path
-from helpers.general import record_args, set_seed, print_results_list
+from helpers.general import record_args, seed_everything, print_results_list
 from trainer import Trainer, get_test_results
 from helpers.basic_classes import KroneckerArgs, ReLUArgs, GeneralHeadArgs, TrainerArgs
 from model import Model
@@ -53,7 +53,7 @@ class Experiment(object):
 
         # result reproduction
         self.seed = args.seed
-        set_seed(seed=args.seed)
+        seed_everything(seed=args.seed)
 
         print(f'######################## STARTING EXPERIMENT ########################')
         self.name_of_run = record_args(args)

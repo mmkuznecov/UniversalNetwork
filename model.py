@@ -152,7 +152,7 @@ class Head(Module):
 
 class Model(Module):
     """
-    Our model for classification tasks
+    Our model for classification and regression tasks
 
     :param task: Task
     :param kronecker_args: KroneckerArgs
@@ -165,19 +165,26 @@ class Model(Module):
     def __init__(self, task: Task, kronecker_args: KroneckerArgs, relu_args: ReLUArgs,
                  general_head_args: GeneralHeadArgs, drop_out: float, out_channel: int):
         super(Model, self).__init__()
+        self.task = task
         self.head = Head(kronecker_args=kronecker_args, relu_args=relu_args, general_head_args=general_head_args)
         head_out_channel = self.head.out_channel + general_head_args.z_align
 
-        self.mlp = MLP(channels=[head_out_channel, general_head_args.in_channel, general_head_args.in_channel,
-                       out_channel], drop_out=drop_out)
+        if task == Task.Classification:
+            self.mlp = MLP(channels=[head_out_channel, general_head_args.in_channel, general_head_args.in_channel,
+                           out_channel], drop_out=drop_out)
+        elif task == Task.Regression:
+            self.mlp = MLP(channels=[head_out_channel, general_head_args.in_channel, general_head_args.in_channel,
+                           1], drop_out=drop_out)  # Output a single value for regression
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
         Forward thru Head + a pooling layer + MLP
 
         :param x: torch.Tensor (n, m)
-        :return: model_output: torch.Tensor (batch_size, channels[-1])
+        :return: model_output: torch.Tensor (batch_size, channels[-1]) for classification
+                                            or (batch_size, 1) for regression
         """
         head_output = self.head(x=x)  # shape (batch_size * n, channels[-1])
         x_invariant = head_output.mean(dim=0, keepdim=True)  # shape (batch_size, channels[-1])
-        return self.mlp(x_invariant)  # shape (batch_size, channels[-1])
+        return self.mlp(x_invariant)  # shape (batch_size, channels[-1]) for classification
+                                      # or (batch_size, 1) for regression
