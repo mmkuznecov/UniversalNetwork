@@ -1,8 +1,8 @@
-from model import Model
-from helpers.basic_classes import KroneckerArgs, ReLUArgs, GeneralHeadArgs, Task, PoolType
+from equinet.model import Model
+from equinet.helpers.basic_classes import KroneckerArgs, ReLUArgs, GeneralHeadArgs, Task, PoolType
 import torch
 
-from helpers.general import seed_everything
+from equinet.helpers.general import seed_everything
 
 
 seed_everything(42)

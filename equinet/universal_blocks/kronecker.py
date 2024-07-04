@@ -2,8 +2,8 @@ import torch
 from torch.nn import Module, Parameter, ModuleList
 from sklearn.neighbors import NearestNeighbors
 
-from helpers.basic_classes import KroneckerArgs
-from helpers.mlp import MLP
+from ..helpers.basic_classes import KroneckerArgs
+from ..helpers.mlp import MLP
 
 
 class KroneckerLayer(Module):

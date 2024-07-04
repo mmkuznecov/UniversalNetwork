@@ -3,13 +3,13 @@ from sklearn.neighbors import NearestNeighbors
 from torch.nn import Module, ModuleList
 import numpy as np
 
-from helpers.basic_classes import PoolType, KroneckerArgs, ReLUArgs, GeneralHeadArgs, Task
-from universal_blocks.kronecker import KroneckerLayer
-from universal_blocks.contraction import ContractionLayer
-from universal_blocks.linear import CustomLinear
-from universal_blocks.vn_relu import VNLeakyReLU
-from universal_blocks.vn_pooling import get_pooling_cls
-from helpers.mlp import MLP
+from .helpers.basic_classes import PoolType, KroneckerArgs, ReLUArgs, GeneralHeadArgs, Task
+from .universal_blocks.kronecker import KroneckerLayer
+from .universal_blocks.contraction import ContractionLayer
+from .universal_blocks.linear import CustomLinear
+from .universal_blocks.vn_relu import VNLeakyReLU
+from .universal_blocks.vn_pooling import get_pooling_cls
+from .helpers.mlp import MLP
 
 
 class Head(Module):

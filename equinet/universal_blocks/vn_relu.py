@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from helpers.basic_classes import ReLUArgs
+from ..helpers.basic_classes import ReLUArgs
 
 
 class VNLeakyReLU(nn.Module):

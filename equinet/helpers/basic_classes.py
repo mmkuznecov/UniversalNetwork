@@ -4,8 +4,8 @@ import os.path as osp
 from typing import NamedTuple
 from torch.nn import CrossEntropyLoss, MSELoss
 
-from helpers.git_path import get_git_path
-from helpers.vn_modelnet_dataloader import ModelNetDataLoader
+from .git_path import get_git_path
+from .vn_modelnet_dataloader import ModelNetDataLoader
 
 MODELNET_NUM_POINTS = 1024
 NUM_WORKERS = 6

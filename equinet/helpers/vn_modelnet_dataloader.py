@@ -4,7 +4,7 @@ import os
 from torch.utils.data import Dataset
 warnings.filterwarnings('ignore')
 
-from helpers.git_path import get_git_path
+from .git_path import get_git_path
 
 
 def pc_normalize(pc):
@@ -97,7 +97,7 @@ class ModelNetDataLoader(Dataset):
 if __name__ == '__main__':
     import torch
 
-    path = os.path.join(git_path(), 'datasets', 'modelnet40_normal_resampled')
+    path = os.path.join(get_git_path(), 'datasets', 'modelnet40_normal_resampled')
     data = ModelNetDataLoader(path, split='train', uniform=False, normal_channel=True)
     DataLoader = torch.utils.data.DataLoader(data, batch_size=12, shuffle=True)
     for point,label in DataLoader:

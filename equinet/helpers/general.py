@@ -5,7 +5,7 @@ import torch
 from argparse import ArgumentParser
 from typing import List, Tuple, Optional
 
-from helpers.basic_classes import PoolType, DataSet
+from .basic_classes import PoolType, DataSet
 
 
 def convert_underscore_to_camelcase(word: str):

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from helpers.basic_classes import PoolType
+from ..helpers.basic_classes import PoolType
 
 
 def get_pooling_cls(pool_type: PoolType):
